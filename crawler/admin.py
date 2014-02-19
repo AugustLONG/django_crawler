@@ -1,22 +1,29 @@
 from django.contrib import admin
 
 from .models import Blog, Post, Comment
-from .tasks import crawl as crawl
+from .tasks import crawl_blog, crawl_post
 
 
 class BlogAdmin(admin.ModelAdmin):
     list_display = ['name', 'url']
-    actions = ['crawl_blogs']
+    actions = ['crawl']
 
-    def crawl_blogs(self, request, queryset):
+    def crawl(self, request, queryset):
         for blog in queryset:
-            crawl.delay(blog.id)
+            crawl_blog.delay(blog.id)
         self.message_user(request, 'Task(s) created')
-    crawl_blogs.short_description = 'Crawls the selected blog(s)'
+    crawl.short_description = 'Crawls the selected blog(s)'
 
 
 class PostAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['title', 'url']
+    actions = ['crawl']
+
+    def crawl(self, request, queryset):
+        for post in queryset:
+            crawl_post.delay(post.id)
+        self.message_user(request, 'Task(s) created')
+    crawl.short_description = 'Crawls the selected post(s)'
 
 
 class CommentAdmin(admin.ModelAdmin):
