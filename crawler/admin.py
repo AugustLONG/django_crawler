@@ -15,9 +15,13 @@ class BlogAdmin(admin.ModelAdmin):
     crawl.short_description = 'Crawls the selected blog(s)'
 
 
+class CommentInline(admin.TabularInline):
+    model = Comment
+
 class PostAdmin(admin.ModelAdmin):
     list_display = ['__str__', 'url']
     actions = ['crawl']
+    inlines = [CommentInline]
 
     def crawl(self, request, queryset):
         for post in queryset:
@@ -27,7 +31,7 @@ class PostAdmin(admin.ModelAdmin):
 
 
 class CommentAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['__str__', 'post']
 
 
 admin.site.register(Blog, BlogAdmin)
