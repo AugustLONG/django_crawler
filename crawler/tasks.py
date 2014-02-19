@@ -48,6 +48,9 @@ def crawl_post(post_id):
         # extract post content
         sel = browser.find_element_by_xpath(blog.post_content_xpath)
         post.content = sel.text
+        # extract post date
+        sel = browser.find_element_by_xpath(blog.post_date_xpath)
+        post.date = sel.text
         post.save()
 
         # find and save the comments
