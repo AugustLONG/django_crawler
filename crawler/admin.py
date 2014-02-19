@@ -16,7 +16,7 @@ class BlogAdmin(admin.ModelAdmin):
 
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ['title', 'url']
+    list_display = ['__str__', 'url']
     actions = ['crawl']
 
     def crawl(self, request, queryset):

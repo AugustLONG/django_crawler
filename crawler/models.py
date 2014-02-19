@@ -25,6 +25,7 @@ class Post(models.Model):
     blog = models.ForeignKey(Blog)
     url = models.URLField(_('Post Url'), db_index=True)
     title = models.CharField(_('Title'), max_length=255, blank=True)
+    date = models.CharField(_('Date'), max_length=120, null=True, blank=True)
     content = models.TextField(_('Content'), blank=True)
 
     def __str__(self):
