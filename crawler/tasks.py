@@ -62,10 +62,3 @@ def crawl_post(post_id):
             if created:
                 comment.content = content
                 comment.save()
-
-
-
-
-
-
-

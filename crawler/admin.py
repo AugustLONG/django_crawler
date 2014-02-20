@@ -17,6 +17,8 @@ class BlogAdmin(admin.ModelAdmin):
 
 class CommentInline(admin.TabularInline):
     model = Comment
+    extra = 0
+
 
 class PostAdmin(admin.ModelAdmin):
     list_display = ['__str__', 'url']
@@ -37,4 +39,3 @@ class CommentAdmin(admin.ModelAdmin):
 admin.site.register(Blog, BlogAdmin)
 admin.site.register(Post, PostAdmin)
 admin.site.register(Comment, CommentAdmin)
-
